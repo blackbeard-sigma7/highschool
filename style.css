@@ -1,0 +1,136 @@
+body {
+    background-color: black;
+    margin: 0;
+    font-family: sans-serif; /* Escolha uma fonte adequada */
+    background-image: url("background.jpg"); /* Define a imagem de fundo */
+    background-size: cover; /* Ajusta a imagem para cobrir toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem  */
+}
+
+header {
+    background: linear-gradient(to bottom, rgb(54, 54, 92), rgb(7, 4, 12));
+    padding: 20px; /* Ajuste conforme necessário */
+    color: white;
+    display: flex; /* Permite alinhar a logo e o menu */
+    align-items: center; 
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin-bottom: 10px;
+}
+
+.imagem-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda a altura da tela */
+}
+
+.imagem-container img {
+    max-width: 80%; /* Ajuste conforme necessário */
+    height: auto;
+    opacity: 0;
+    transform: translateY(100%); /* Inicialmente fora da tela */
+    transition: opacity 1s, transform 1s; /* Animação suave */
+}
+
+.imagem-container.mostrar img {
+    opacity: 1;
+    transform: translateY(0);
+}
+.logo-container {
+    margin-right: 20px; /* Espaçamento entre a logo e o menu */
+}
+
+.logo {
+    max-width: 100px; /* Ajuste conforme o tamanho da sua logo */
+    height: auto;
+    filter: blur(1px); /* Efeito de embaçamento inicial */
+    transition: filter 0.3s; /* Transição suave para o efeito */
+}
+
+.logo:hover {
+    filter: blur(0); /* Remove o embaçamento ao passar o mouse */
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) { 
+    header {
+        flex-direction: column; /* Logo e menu em coluna */
+    }
+
+    nav ul {
+        margin-top: 20px; /* Espaçamento entre a logo e o menu em mobile */
+    }
+
+    .logo {
+        max-width: 80px; /* Ajuste o tamanho da logo em mobile */
+    }
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Alinha os itens horizontalmente */
+    transition:transform 0.1s;
+    
+}
+
+nav li {
+    margin: 0 10px; /* Espaçamento entre os itens */
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) { 
+    /* ... (estilos anteriores) ... */
+
+    nav ul {
+        flex-direction: column; /* Volta para o layout vertical em mobile */
+        margin-top: 20px; 
+    }
+
+    nav li {
+        margin: 10px 0; /* Ajusta o espaçamento em mobile */
+    }
+}
+
+nav li a { /* Estilos para os links que envolvem os ícones */
+    display: block; /* Garante que o link ocupe toda a área do item da lista */
+    transition: transform 0.1s; /* Adiciona a transição suave */
+}
+
+nav li a:hover {
+    transform: translateY(5px); /* Move o ícone um pouco para baixo ao passar o mouse */
+}
+
+nav li img {
+    max-width: 30px; /* Ajuste o tamanho dos ícones conforme necessário */
+    height: auto;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) { 
+    /* ... (estilos anteriores) ... */
+}
+nav {
+    flex-grow: 1; /* Permite que o menu ocupe o espaço disponível */
+    display: flex;
+    justify-content: center; /* Centraliza os itens do menu */
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) { 
+    /* ... (estilos anteriores) ... */
+
+    nav {
+        justify-content: flex-start; /* Alinha o menu à esquerda em mobile */
+    }
+}
