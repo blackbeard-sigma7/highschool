@@ -1,136 +1,139 @@
 body {
-    background-color: black;
+    background: black url("background.jpg") center/cover no-repeat;
     margin: 0;
-    font-family: sans-serif; /* Escolha uma fonte adequada */
-    background-image: url("background.jpg"); /* Define a imagem de fundo */
-    background-size: cover; /* Ajusta a imagem para cobrir toda a área */
-    background-position: center; /* Centraliza a imagem */
-    background-repeat: no-repeat; /* Evita repetição da imagem  */
+    font-family: sans-serif;
 }
 
 header {
     background: linear-gradient(to bottom, rgb(54, 54, 92), rgb(7, 4, 12));
-    padding: 20px; /* Ajuste conforme necessário */
+    padding: 20px;
     color: white;
-    display: flex; /* Permite alinhar a logo e o menu */
-    align-items: center; 
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+}
+
+nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    transition: transform 0.1s;
 }
 
 nav li {
-    margin-bottom: 10px;
+    margin: 0 10px;
+}
+
+nav li a {
+    display: block;
+    transition: transform 0.1s;
+}
+
+nav li a:hover {
+    transform: translateY(5px);
+}
+
+nav li img {
+    max-width: 30px;
+    height: auto;
 }
 
 .imagem-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ocupa toda a altura da tela */
+    height: 100vh;
 }
 
 .imagem-container img {
-    max-width: 80%; /* Ajuste conforme necessário */
+    max-width: 80%;
     height: auto;
     opacity: 0;
-    transform: translateY(100%); /* Inicialmente fora da tela */
-    transition: opacity 1s, transform 1s; /* Animação suave */
+    transform: translateY(100%);
+    transition: opacity 1s, transform 1s;
 }
 
 .imagem-container.mostrar img {
     opacity: 1;
     transform: translateY(0);
 }
+
 .logo-container {
-    margin-right: 20px; /* Espaçamento entre a logo e o menu */
+    margin-right: 20px;
 }
 
 .logo {
-    max-width: 100px; /* Ajuste conforme o tamanho da sua logo */
+    max-width: 100px;
     height: auto;
-    filter: blur(1px); /* Efeito de embaçamento inicial */
-    transition: filter 0.3s; /* Transição suave para o efeito */
+    filter: blur(1px);
+    transition: filter 0.3s;
 }
 
 .logo:hover {
-    filter: blur(0); /* Remove o embaçamento ao passar o mouse */
+    filter: blur(0);
+}
+
+/* Menu suspenso */
+#menu-toggle {
+    display: none;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
 }
 
 /* Responsividade para dispositivos móveis */
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
     header {
-        flex-direction: column; /* Logo e menu em coluna */
+        flex-direction: column;
+    }
+
+    nav {
+        justify-content: flex-start;
     }
 
     nav ul {
-        margin-top: 20px; /* Espaçamento entre a logo e o menu em mobile */
-    }
-
-    .logo {
-        max-width: 80px; /* Ajuste o tamanho da logo em mobile */
-    }
-}
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex; /* Alinha os itens horizontalmente */
-    transition:transform 0.1s;
-    
-}
-
-nav li {
-    margin: 0 10px; /* Espaçamento entre os itens */
-}
-
-/* Responsividade para dispositivos móveis */
-@media (max-width: 768px) { 
-    /* ... (estilos anteriores) ... */
-
-    nav ul {
-        flex-direction: column; /* Volta para o layout vertical em mobile */
-        margin-top: 20px; 
+        flex-direction: column;
+        margin-top: 20px;
     }
 
     nav li {
-        margin: 10px 0; /* Ajusta o espaçamento em mobile */
+        margin: 10px 0;
     }
-}
 
-nav li a { /* Estilos para os links que envolvem os ícones */
-    display: block; /* Garante que o link ocupe toda a área do item da lista */
-    transition: transform 0.1s; /* Adiciona a transição suave */
-}
+    .logo {
+        max-width: 80px;
+    }
 
-nav li a:hover {
-    transform: translateY(5px); /* Move o ícone um pouco para baixo ao passar o mouse */
-}
+    .menu-icon {
+        display: block;
+    }
 
-nav li img {
-    max-width: 30px; /* Ajuste o tamanho dos ícones conforme necessário */
-    height: auto;
-}
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
 
-/* Responsividade para dispositivos móveis */
-@media (max-width: 768px) { 
-    /* ... (estilos anteriores) ... */
-}
-nav {
-    flex-grow: 1; /* Permite que o menu ocupe o espaço disponível */
-    display: flex;
-    justify-content: center; /* Centraliza os itens do menu */
-}
+    #menu-toggle:checked + nav ul {
+        display: flex;
+    }
 
-/* Responsividade para dispositivos móveis */
-@media (max-width: 768px) { 
-    /* ... (estilos anteriores) ... */
-
-    nav {
-        justify-content: flex-start; /* Alinha o menu à esquerda em mobile */
+    nav li {
+        width: 100%;
+        text-align: center;
     }
 }
