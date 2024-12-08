@@ -1,0 +1,200 @@
+body {
+    background: transparent url("images/background.jpg") center/cover no-repeat;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+header {
+    background-color: transparent; 
+    opacity: 1;
+    padding: 0px;
+    color: white;
+    display: flex;
+    align-items: right;
+    justify-content: space-between; 
+}
+
+nav {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(1fr); 
+    justify-content: flex-end;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    transition: transform 0.1s;
+    border-right: 1px solid white; 
+}
+
+nav ul:last-child { 
+    border-right: none;
+}
+
+nav li {
+    margin: 0px;
+}
+
+nav li a {
+    display: block;
+    transition: transform 0.1s;
+}
+
+nav li a:hover {
+    transform: translateY(5px);
+}
+
+nav li img {
+    max-width: 250px; 
+    height: auto;
+    padding-left: 0px;
+    align-items: flex-end;
+    transition: max-width 0.3s; 
+}
+
+.menu-icon {
+    padding: 40px;
+    justify-content: flex-end;
+    display: none; 
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.imagem-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    flex-grow: 1; 
+    min-height: 300px; 
+    padding-left: 10px;
+    color: azure;
+}
+
+.imagem-container img {
+    max-width: 80%;
+    height: auto;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 1s, transform 1s;
+}
+
+.imagem-container.mostrar img {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.logo-container {
+    margin-right: 20px;
+    padding-left: 150px;
+}
+
+.logo {
+    max-width: 260px;
+    height: auto;
+    filter: blur(1px);
+    transition: filter 0.3s;
+    align-items: center;
+}
+
+.logo:hover {
+    filter: blur(0);
+}
+
+.apresentacao {
+    display: flex; 
+    align-items: center; 
+}
+
+.foto {
+    margin-right: 20px; 
+}
+
+.foto img {
+    max-width: 200px; 
+    height: auto; 
+    border-radius: 50%; 
+}
+
+/* Menu suspenso */
+#menu-toggle {
+    display: none;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+
+    nav {
+        justify-content: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    nav li {
+        margin: 10px 0;
+    }
+
+    .logo {
+        max-width: 80px;
+    }
+
+    nav li img {
+        max-width: 30px; 
+    }
+}
+
+@media (max-width: 480px) { 
+    .menu-icon {
+        display: block; 
+    }
+
+    nav ul {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    #menu-toggle:checked + nav ul {
+        display: flex;
+    }
+
+    nav li {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.profiles-container .profile {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    color: aliceblue;
+}
+
+.profiles-container .profile.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.profile .foto img {
+    border-radius: 50%; /* Torna as fotos redondas */
+}
+
+.texto-apresentacao {
+    text-align: center;
+    color: aliceblue;
+
+}
