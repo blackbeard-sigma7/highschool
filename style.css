@@ -48,10 +48,10 @@ nav li a:hover {
 }
 
 nav li img {
-    max-width: 250px; 
-    height: auto;
-    padding-left: 0px;
-    align-items: flex-end;
+    max-width: 100%; 
+    height: auto; 
+    padding-left: 0px; 
+    align-items: flex-end; 
     transition: max-width 0.3s; 
 }
 
