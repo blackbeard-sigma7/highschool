@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MLA Formatter</title>
+<style>
+  :root {
+    --blue-bg: #002f6c;
+    --panel-bg: #ffffff;
+    --field-bg: #f2f2f2;
+    --text-color: #1a1a1a;
+    --border-color: #d0d0d0;
+    --radius-lg: 16px;
+    --radius-sm: 8px;
+    --font-main: "Times New Roman", Times, serif;
+    --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--blue-bg);
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: var(--text-color);
+    font-family: var(--font-ui);
+  }
+
+  .wrapper {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .card {
+    background-color: var(--panel-bg);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.5rem 2rem;
+    box-shadow:
+      0 24px 48px rgba(0,0,0,0.25),
+      0 4px 16px rgba(0,0,0,0.35);
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .section-group {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .row-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .field-block {
+    display: grid;
+    gap: 0.5rem;
+    flex: 1 1 220px;
+    min-width: 0;
+  }
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #333;
+    font-family: var(--font-ui);
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    background-color: var(--field-bg);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--text-color);
+    font-family: var(--font-ui);
+    outline: none;
+  }
+
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: #888;
+    background-color: #fafafa;
+  }
+
+  #essayBody {
+    min-height: 180px;
+    resize: vertical;
+  }
+
+  #worksCitedInput {
+    min-height: 140px;
+    resize: vertical;
+    white-space: pre;
+  }
+
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  button,
+  a.button-link {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0.75rem 1rem;
+    min-width: 140px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow:
+      0 16px 24px rgba(0,0,0,0.4),
+      0 2px 6px rgba(0,0,0,0.5);
+    color: #fff;
+    background-color: var(--blue-bg);
+    display: inline-block;
+  }
+
+  button.secondary,
+  a.button-link.secondary {
+    background-color: #4a4a4a;
+  }
+
+  .output-card {
+    background-color: var(--panel-bg);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 24px 48px rgba(0,0,0,0.25),
+      0 4px 16px rgba(0,0,0,0.35);
+    padding: 2rem clamp(1rem,2vw,2rem);
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .doc-preview {
+    font-family: var(--font-main);
+    font-size: 12pt;
+    line-height: 1.8; /* ~double spaced */
+    color: #000;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #dcdcdc;
+    padding: 2rem;
+    background-color: #fff;
+  }
+
+  .mla-header-topline {
+    text-align: right;
+    font-family: var(--font-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .mla-header-block {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-main);
+  }
+
+  .mla-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-main);
+  }
+
+  .mla-paragraph {
+    text-indent: 0.5in;
+    margin: 0 0 1rem 0;
+    font-family: var(--font-main);
+  }
+
+  .works-cited-heading {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-main);
+  }
+
+  .works-cited-entry {
+    margin: 0 0 1rem 0;
+    padding-left: 0.5in;
+    text-indent: -0.5in;
+    font-family: var(--font-main);
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding: 1rem;
+    }
+    .card,
+    .output-card {
+      padding: 1rem 1rem 1.5rem;
+      border-radius: 12px;
+    }
+    .doc-preview {
+      padding: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- FORM CARD -->
+  <div class="card">
+    <div class="section-group">
+
+      <div class="row-flex">
+        <div class="field-block">
+          <label for="studentName">Nome do Estudante</label>
+          <input id="studentName" type="text" />
+        </div>
+
+        <div class="field-block">
+          <label for="teacherName">Professor</label>
+          <input id="teacherName" type="text" />
+        </div>
+
+        <div class="field-block">
+          <label for="courseName">Disciplina</label>
+          <input id="courseName" type="text" />
+        </div>
+      </div>
+
+      <div class="row-flex">
+        <div class="field-block">
+          <label for="paperTitle">Título do Essay</label>
+          <input id="paperTitle" type="text" />
+        </div>
+      </div>
+
+      <div class="row-flex">
+        <div class="field-block" style="flex:1 1 100%;">
+          <label for="essayBody">Texto</label>
+          <textarea id="essayBody"></textarea>
+        </div>
+      </div>
+
+      <div class="row-flex" style="align-items:flex-end;">
+        <div class="field-block" style="flex:1 1 100%;">
+          <label for="worksCitedInput">Works Cited</label>
+          <textarea id="worksCitedInput" placeholder="Cole aqui cada referência (uma por linha)"></textarea>
+        </div>
+
+        <div class="btn-row" style="flex:0 0 auto; align-self:flex-start;">
+          <a class="button-link secondary" href="https://www.scribbr.com/citation/generator/cite/" target="_blank" rel="noopener noreferrer">Gerar Citação</a>
+          <button type="button" id="formatBtn">Formatar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OUTPUT CARD -->
+  <div class="output-card">
+    <div id="outputArea" class="doc-preview" style="min-height:200px;">
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function getMLADate() {
+    const now = new Date();
+    const day = now.getDate();
+    const year = now.getFullYear();
+    const monthNames = [
+      "January","February","March","April","May","June",
+      "July","August","September","October","November","December"
+    ];
+    const monthName = monthNames[now.getMonth()];
+    return day + " " + monthName + " " + year;
+  }
+
+  function sanitize(str) {
+    return (str || "").toString().trim();
+  }
+
+  function splitIntoParagraphs(rawText) {
+    const cleaned = rawText.replace(/\r\n/g, "\n").trim();
+    let parts = cleaned.split(/\n\s*\n/);
+    if (parts.length === 1) {
+      parts = cleaned.split(/\n/);
+    }
+    parts = parts.map(p => p.trim()).filter(p => p.length > 0);
+    return parts;
+  }
+
+  function getLastNameFromFullName(fullName) {
+    const parts = sanitize(fullName).split(/\s+/);
+    if (!parts.length) return "";
+    return parts[parts.length - 1];
+  }
+
+  function buildWorksCitedHTML(raw) {
+    // O aluno cola cada referência já formatada (MLA) uma por linha.
+    // Vamos quebrar por linhas e gerar <p class="works-cited-entry">...</p> com hanging indent.
+    const lines = raw.replace(/\r\n/g, "\n").split("\n")
+      .map(l => l.trim())
+      .filter(l => l.length > 0);
+
+    if (!lines.length) return "";
+
+    const entriesHTML = lines.map(l => {
+      return `<p class="works-cited-entry">${l}</p>`;
+    }).join("\n");
+
+    return `
+      <div class="works-cited-heading">Works Cited</div>
+      ${entriesHTML}
+    `;
+  }
+
+  function generateMLA() {
+    const studentName = sanitize(document.getElementById("studentName").value);
+    const teacherName = sanitize(document.getElementById("teacherName").value);
+    const courseName  = sanitize(document.getElementById("courseName").value);
+    const paperTitle  = sanitize(document.getElementById("paperTitle").value);
+    const essayBody   = sanitize(document.getElementById("essayBody").value);
+    const worksRaw    = sanitize(document.getElementById("worksCitedInput").value);
+
+    const mlaDate = getMLADate();
+    const lastName = getLastNameFromFullName(studentName) || "";
+
+    const paragraphs = splitIntoParagraphs(essayBody);
+    const paragraphsHTML = paragraphs.map(p => {
+      return `<p class="mla-paragraph">${p}</p>`;
+    }).join("\n");
+
+    const worksCitedBlock = buildWorksCitedHTML(worksRaw);
+
+    const headerTop = `<div class="mla-header-topline">${lastName} 1</div>`;
+    const headerBlock = `
+      <div class="mla-header-block">
+        <div>${studentName}</div>
+        <div>${teacherName}</div>
+        <div>${courseName}</div>
+        <div>${mlaDate}</div>
+      </div>
+    `;
+
+    const titleBlock = `<div class="mla-title">${paperTitle}</div>`;
+
+    const finalDoc = `
+      ${headerTop}
+      ${headerBlock}
+      ${titleBlock}
+      ${paragraphsHTML}
+      ${worksCitedBlock}
+    `;
+
+    const outputArea = document.getElementById("outputArea");
+    outputArea.innerHTML = finalDoc;
+  }
+
+  document.getElementById("formatBtn").addEventListener("click", generateMLA);
+</script>
+</body>
+</html>
