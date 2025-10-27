@@ -255,7 +255,7 @@
       border-radius: 12px;
     }
     .doc-preview {
-      padding: 1in; /* mantém margem simulada */
+      padding: 1in; /* mantem margem simulada, entao lembrar de pedir pra eles colocarem 1inch depois */
     }
   }
 </style>
@@ -265,7 +265,7 @@
 
   <!-- HEADER COM LOGO -->
   <div class="site-header">
-    <!-- Substituir o src abaixo pela logo em PNG da escola -->
+    <!-- Pegar a foto que o Denison te mandou -->
     <img class="school-logo" src="logo-placeholder.png" alt="School Logo" />
     <div class="header-text">
       High School · American History Essay
@@ -364,7 +364,7 @@
   }
 
   function buildWorksCitedHTML(raw) {
-    // Cada linha do textarea vira uma entrada da Works Cited com hanging indent.
+    // Cada linha do textarea vira uma entrada da Works Cited com hanging indent, entao ele da enter pra proxima citacao.
     const lines = raw.replace(/\r\n/g, "\n").split("\n")
       .map(l => l.trim())
       .filter(l => l.length > 0);
