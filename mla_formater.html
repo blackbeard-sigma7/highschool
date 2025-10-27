@@ -40,6 +40,37 @@
     gap: 2rem;
   }
 
+  /* Header visual da escola */
+  .site-header {
+    background-color: var(--panel-bg);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 24px 48px rgba(0,0,0,0.25),
+      0 4px 16px rgba(0,0,0,0.35);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .school-logo {
+    width: 64px;
+    height: 64px;
+    background-color: #d9d9d9;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .header-text {
+    font-family: var(--font-ui);
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
   .card {
     background-color: var(--panel-bg);
     border-radius: var(--radius-lg);
@@ -156,6 +187,7 @@
     width: 100%;
   }
 
+  /* Documento simulado */
   .doc-preview {
     font-family: var(--font-main);
     font-size: 12pt;
@@ -164,7 +196,8 @@
     max-width: 800px;
     margin: 0 auto;
     border: 1px solid #dcdcdc;
-    padding: 2rem;
+    /* simular página com margem de 1 inch ao redor */
+    padding: 1in;
     background-color: #fff;
   }
 
@@ -182,7 +215,7 @@
 
   .mla-title {
     text-align: center;
-    font-weight: bold;
+    font-weight: normal; /* título não em negrito no MLA */
     margin-bottom: 1.5rem;
     font-family: var(--font-main);
   }
@@ -195,7 +228,7 @@
 
   .works-cited-heading {
     text-align: center;
-    font-weight: bold;
+    font-weight: normal; /* Works Cited centralizado, sem negrito */
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-family: var(--font-main);
@@ -204,12 +237,16 @@
   .works-cited-entry {
     margin: 0 0 1rem 0;
     padding-left: 0.5in;
-    text-indent: -0.5in;
+    text-indent: -0.5in; /* hanging indent */
     font-family: var(--font-main);
   }
 
   @media (max-width: 600px) {
     body {
+      padding: 1rem;
+    }
+    .site-header {
+      border-radius: 12px;
       padding: 1rem;
     }
     .card,
@@ -218,13 +255,22 @@
       border-radius: 12px;
     }
     .doc-preview {
-      padding: 1rem;
+      padding: 1in; /* mantém margem simulada */
     }
   }
 </style>
 </head>
 <body>
 <div class="wrapper">
+
+  <!-- HEADER COM LOGO -->
+  <div class="site-header">
+    <!-- Substituir o src abaixo pela logo em PNG da escola -->
+    <img class="school-logo" src="logo-placeholder.png" alt="School Logo" />
+    <div class="header-text">
+      High School · American History Essay
+    </div>
+  </div>
 
   <!-- FORM CARD -->
   <div class="card">
@@ -264,7 +310,7 @@
       <div class="row-flex" style="align-items:flex-end;">
         <div class="field-block" style="flex:1 1 100%;">
           <label for="worksCitedInput">Works Cited</label>
-          <textarea id="worksCitedInput" placeholder="Cole aqui cada referência (uma por linha)"></textarea>
+          <textarea id="worksCitedInput" placeholder="Cole aqui cada referência MLA (uma por linha)"></textarea>
         </div>
 
         <div class="btn-row" style="flex:0 0 auto; align-self:flex-start;">
@@ -318,8 +364,7 @@
   }
 
   function buildWorksCitedHTML(raw) {
-    // O aluno cola cada referência já formatada (MLA) uma por linha.
-    // Vamos quebrar por linhas e gerar <p class="works-cited-entry">...</p> com hanging indent.
+    // Cada linha do textarea vira uma entrada da Works Cited com hanging indent.
     const lines = raw.replace(/\r\n/g, "\n").split("\n")
       .map(l => l.trim())
       .filter(l => l.length > 0);
